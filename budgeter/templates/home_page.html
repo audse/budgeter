@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block head_content %}
+	{% load chartit %}
+	{{ chart|load_charts:"container" }}
+{% endblock %}
+
+{% block content %}
+
+<form action="{% url 'add_entry' %}" method="post" style="margin-bottom: 10px;">
+	{% csrf_token %}
+	<div class="select-style">
+		<select name="positive">
+			<option value="no">-</option>
+			<option value="yes">+</option>
+		</select>
+	</div>
+	<input type="number" name="amount" placeholder="Amount..." />
+	<input type="text" name="notes" placeholder="Notes..." />
+	<div class="select-style">
+		<select name="category">
+			{% for category in categories %}
+				<option value="{{ category.pk }}">{{ category.name|title }}</option>
+			{% endfor %}
+		</select>
+	</div>
+	<button type="submit" name="submit">Add</button>
+</form>
+
+{% for entry in entries %}
+	<div class="entry">
+		<div class="flex-wrapper">
+			<div class="entry-section" style="flex-shrink: 1; width: 120px;">
+				{% if entry.positive %}
+				<b class="green">+ ${{ entry.amount|floatformat:2|intcomma }}</b>
+				{% else %}
+				<b class="red">- ${{ entry.amount|floatformat:2|intcomma }}</b>
+				{% endif %}
+			</div>
+			<div class="entry-section" style="flex-grow: 1">
+				{{ entry.notes }}
+			</div>
+			<div class="entry-section gray" style="flex-shrink: 1">
+				{{ entry.category|title }}
+			</div>
+		</div>
+	</div>
+{% endfor %}
+
+{% endblock %}
+
+{% block aside %}
+
+	<h2>Total: ${{ total.amount|floatformat:2|intcomma }}</h2>
+
+	<br />
+	<div id="container">Chart will be rendered here</div>
+
+{% endblock %}
+
+
+
+

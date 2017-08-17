@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Budgeter</title>
+<link href="https://fonts.googleapis.com/css?family=Nunito:300,400,700,900" rel="stylesheet">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+
+{% block head_content %}
+{% endblock %}
+
+<style>
+
+body, html {
+	background: #eee;
+	font-family: 'Nunito', sans-serif;
+	font-size: 1.1em;
+	margin: 0;
+	padding: 0;
+}
+
+b {
+	font-weight: 900;
+}
+
+a {
+	color: #40bc67;
+	text-decoration: none;
+} a:hover {
+	color: #33a557;
+}
+
+input {
+	font-size: .8em;
+	padding: 5px;
+}
+
+button {
+	background: white;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	font-size: .8em;
+	padding: 6px;
+}
+
+h2 {
+	font-weight: 300;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+
+.select-style {
+    border: 1px solid #ccc;
+    display: inline-block;
+    border-radius: 3px;
+    overflow: hidden;
+    background: #fafafa url("img/icon-select.png") no-repeat 90% 50%;
+}
+
+.select-style select {
+    padding: 8px 8px 6px 8px;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+}
+
+.select-style select:focus {
+    outline: none;
+}
+
+#nav, #content, #aside {
+	background: white;
+	-webkit-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.2);
+	box-shadow: 0px 0px 16px -4px rgba(0,0,0,0.2);
+	padding: 10px;
+}
+
+#nav .right {
+	float: right;
+}
+
+#nav .right a {
+	color: #333;
+	font-size: .9em;
+	padding: 0 10px;
+} #nav .right a:hover {
+	color: black;
+}
+
+.flex-wrapper {
+	display: flex;
+}
+
+#content {
+	flex-shrink: 2;
+	margin: 20px 10px 20px 20px;
+}
+
+#aside {
+	flex-grow: 1;
+	margin: 20px 20px 20px 10px;
+}
+
+.entry {
+	border-top: 1px solid #ccc;
+	padding: 10px;
+}
+
+.entry-section {
+	padding: 0 20px;
+}
+
+.green {
+	color: #40bc67;
+}
+
+.red {
+	color: #d65139;
+}
+
+.gray {
+	color: gray;
+}
+
+</style>
+
+</head>
+<body>
+
+<div id="nav">
+	<a href="{% url 'home_page' %}"><b>$.budgeter</b></a>
+	<span class="right">
+		<a href="{% url 'home_page' %}">Home</a>
+		<a href="{% url 'about_page' %}">About</a>
+		<a href="{% url 'admin:index' %}">Admin</a>
+	</span>
+</div>
+
+<div class="flex-wrapper">
+<div id="content">
+	{% block content %}{% endblock %}
+</div>
+
+<div id="aside">
+	{% block aside %}{% endblock %}
+</div>
+</div>
+
+</body>
+</html>
